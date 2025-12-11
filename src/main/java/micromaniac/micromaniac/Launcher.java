@@ -1,4 +1,4 @@
-package micromania.micromania;
+package main.java.micromaniac.micromaniac;
 
 import javafx.application.Application;
 
