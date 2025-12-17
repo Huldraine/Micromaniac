@@ -1,4 +1,4 @@
-package main.java.micromaniac.micromaniac;
+package micromaniac.micromaniac;
 
 import java.util.Random;
 
@@ -43,20 +43,9 @@ public class Client {
         int x = random.nextInt(5);
 
         for (int i = 0; i <= x -1; i++) {
-            int y = random.nextInt(10);
-
+            int y = random.nextInt(liste.length);
             for (int k = 0; k <= this.panier.length -1; k++) {
-
-                if (this.panier[k] == liste[y]){
-
-                    i -=1;
-                    break;
-
-                }else {
-
-                    this.panier[i] = liste[y];
-
-                }
+                this.panier[i] = liste[y];
             }
         }
     }
