@@ -10,7 +10,7 @@ public class Panier extends Client{
     }
 
     @Override
-    public void choixPanier(String[] liste, String[]panier ) {
+    public void choixPanier(String[] liste, String[]panier) {
         Random random = new Random();
 
         int x = random.nextInt(5);

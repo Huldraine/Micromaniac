@@ -9,7 +9,7 @@ public class Magasin implements Reduction{
     private int argent;
     private boolean clientPresent;
     private int prix;
-    private int prixOcasse;
+    private int prixOccase;
     private int rachat;
     private String[] devanture;
     private int employe;;
@@ -80,7 +80,7 @@ public class Magasin implements Reduction{
         this.argent = argent;
         this.clientPresent = clientPresent;
         this.prix = prix;
-        this.prixOcasse = prixOccase;
+        this.prixOccase = prixOccase;
         this.rachat = rachat;
         this.devanture = devanture;
         this.employe = employe;
@@ -88,11 +88,11 @@ public class Magasin implements Reduction{
 
 
     public int getPrixOcasse() {
-        return prixOcasse;
+        return prixOccase;
     }
 
     public void setPrixOcasse(int prixOcasse) {
-        this.prixOcasse = prixOcasse;
+        this.prixOccase = prixOcasse;
     }
 
     public int getEmploye() {
@@ -213,7 +213,7 @@ public class Magasin implements Reduction{
 
             }
             System.out.println(client.getFidelity());
-            total =this.prix * c + this.prixOcasse * d;
+            total =this.prix * c + this.prixOccase * d;
             System.out.println(total);
             reduc(client.getFidelity(), total);
             System.out.println(total);
@@ -276,7 +276,7 @@ public class Magasin implements Reduction{
 
 
         // Paiement
-        total += this.prix * c + this.prixOcasse * d;
+        total += this.prix * c + this.prixOccase * d;
         return total;
     }
 
