@@ -1,8 +1,9 @@
 package micromaniac.micromaniac;
+
 import java.util.*;
 
 
-abstract class Magasin implements Reduction{
+public class Magasin implements Reduction{
 
 
     private int argent;
@@ -11,8 +12,7 @@ abstract class Magasin implements Reduction{
     private int prixOcasse;
     private int rachat;
     private String[] devanture;
-    private int employe;
-    private int promo;
+    private int employe;;
 
     Emploie e = new Emploie(1);
     Panier client = new Panier(new String[]{ " ", " ", " ", " ", " "});
@@ -84,7 +84,6 @@ abstract class Magasin implements Reduction{
         this.rachat = rachat;
         this.devanture = devanture;
         this.employe = employe;
-        this.promo = 1;
     }
 
 
@@ -172,6 +171,7 @@ abstract class Magasin implements Reduction{
 
             int c = 0;
             int d=0;
+            int total = 0;
 
             for (int i = 0; i <= client.getPanier().length - 1; i++) {
 
@@ -191,7 +191,7 @@ abstract class Magasin implements Reduction{
 
                         } else {
                             c += 0;
-                            System.out.print("pas assez");
+
                         }
                     } else {
 
@@ -206,13 +206,18 @@ abstract class Magasin implements Reduction{
 
                         } else {
                             c += 0;
-                            System.out.print("pas assez");
+
                         }
                     }
                 }
 
             }
-            this.argent += this.prix * c + this.prixOcasse * d;
+            System.out.println(client.getFidelity());
+            total =this.prix * c + this.prixOcasse * d;
+            System.out.println(total);
+            reduc(client.getFidelity(), total);
+            System.out.println(total);
+            this.argent += total;
             setClientPresent(false);
             if (getArgent() != save) {
                 System.out.println("paiment accepté");
@@ -300,16 +305,7 @@ abstract class Magasin implements Reduction{
         System.out.println(getArgent());
     }
 
-    public void reduc(int level, int prix){
-        prix = (prix * (100 - level*10))/100;
-        System.out.println("reduc");
-    }
 
-    public void superPromo(boolean verif, int sup){
-        verif = true;
-        this.promo = sup;
-        System.out.println("promo");
-    }
 
     public void ajout(String jeu, boolean retro) {
         String[] ajoutJeu = new String[]{jeu};
@@ -362,6 +358,12 @@ abstract class Magasin implements Reduction{
     public void nouvelEmployer(){
         e.embauche(this.argent);
         n.setStokelevel(e.getNbEmploie());
+    }
+
+    @Override
+    public int reduc(int level, int prix){
+        prix = (prix * (100 - level*10))/100;
+        return prix;
     }
 
 }

@@ -1,5 +1,7 @@
-public interface Reduction {
+package micromaniac.micromaniac;
 
-    void superPromo(boolean verif, int sup, int promo);
+public interface Reduction {
+    int reduc(int level, int prix);
+
 
 }
