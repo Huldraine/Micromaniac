@@ -31,28 +31,19 @@ public class Client {
         this.panier = panier;
     }
 
-    public Client(){
-        this.panier = new String[]{ " ", " ", " ", " ", " "};
+    public Client(String[] panier){
+        this.panier = panier;
         this.fidelity = fidelityLevel();
         this.revend= "";
     }
 
-    public void choixPanier(String[] liste) {
-        Random random = new Random();
-
-        int x = random.nextInt(5);
-
-        for (int i = 0; i <= x -1; i++) {
-            int y = random.nextInt(liste.length);
-            for (int k = 0; k <= this.panier.length -1; k++) {
-                this.panier[i] = liste[y];
-            }
-        }
+    public void choixPanier(String[] liste, String[] panier) {
+        System.out.print(" le panier du client est généré");
     }
 
     public static int fidelityLevel() {
         Random random = new Random();
-        int x = random.nextInt(10);
+        int x = random.nextInt(5);
         return x;
     }
 

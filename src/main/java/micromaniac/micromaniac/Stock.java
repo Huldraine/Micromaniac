@@ -15,8 +15,6 @@ public class Stock {
     private String[] gamelisteRetro;
 
 
-
-
     public Stock(int stokelevel,  HashMap<String, Integer> stockejeuModerne, HashMap<String, Integer> stockejeuRetro, String[] gameliste, String[] gamelisteRetro) {
         this.stokelevel = stokelevel;
         this.stockejeuModerne = stockejeuModerne;
@@ -29,8 +27,6 @@ public class Stock {
         this.stokelevel = stokelevel;
         this.stockejeuModerneOccase = stockejeuModerneOccase;
         this.stockejeuRetroOccase = stockejeuRetroOccase;
-        this.gameliste = new String[]{"super slap bros", "battleland 6", "elden cube", "surnautica", "zagreus", "Ghost of quimper"};
-        this.gamelisteRetro = new String[]{"Marius", "Zeldo", "cupper gear solid", "BLESS", "Alan sleep", "père lachaise rider"};
     }
 
     public HashMap<String, Integer> getStockejeuRetroOccase() {
