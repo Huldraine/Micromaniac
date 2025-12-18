@@ -7,6 +7,7 @@ public class Stock {
 
 
     private int stokelevel;
+    private int cout;
     private HashMap<String, Integer> stockejeuRetro;
     private HashMap<String, Integer> stockejeuModerne;
     private HashMap<String, Integer> stockejeuRetroOccase;
@@ -21,12 +22,22 @@ public class Stock {
         this.stockejeuRetro = stockejeuRetro;
         this.gameliste = gameliste;
         this.gamelisteRetro = gamelisteRetro;
+        this.cout = 35;
     }
 
     public Stock(int stokelevel, HashMap<String, Integer> stockejeuModerneOccase, HashMap<String, Integer> stockejeuRetroOccase) {
         this.stokelevel = stokelevel;
         this.stockejeuModerneOccase = stockejeuModerneOccase;
         this.stockejeuRetroOccase = stockejeuRetroOccase;
+    }
+
+
+    public int getCout() {
+        return cout;
+    }
+
+    public void setCout(int cout) {
+        this.cout = cout;
     }
 
     public HashMap<String, Integer> getStockejeuRetroOccase() {
@@ -94,11 +105,11 @@ public class Stock {
         System.out.println("selectionne");
     }
 
-    public void restock(String[] listeExemplaire , int cout, HashMap<String, Integer> stockejeu) {
+    public void restock(String[] listeExemplaire, HashMap<String, Integer> stockejeu) {
         System.out.println("restock moderne");
     }
 
-    public void restockRetro(String[] listeExemplaire , int cout, HashMap<String, Integer> stockejeu) {
+    public void restockRetro(String[] listeExemplaire, HashMap<String, Integer> stockejeu) {
         System.out.println("restock Retro");
     }
 

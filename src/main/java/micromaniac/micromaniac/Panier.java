@@ -9,6 +9,7 @@ public class Panier extends Client{
         super(panier);
     }
 
+    //génère le panier des client
     @Override
     public void choixPanier(String[] liste, String[]panier) {
         Random random = new Random();

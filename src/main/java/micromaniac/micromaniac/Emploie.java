@@ -16,6 +16,7 @@ public class Emploie {
         this.nbEmploie = nbEmploie;
     }
 
+    // embauche un employer et on paye des charges
     public int embauche(int argent) {
         if (this.nbEmploie <= 5) {
             setNbEmploie(this.nbEmploie + 1);

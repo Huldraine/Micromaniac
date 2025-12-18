@@ -12,7 +12,7 @@ public class Magasin implements Reduction{
     private int prixOccase;
     private int rachat;
     private String[] devanture;
-    private int employe;;
+    private int employe;
 
     Emploie e = new Emploie(1);
     Panier client = new Panier(new String[]{ " ", " ", " ", " ", " "});
@@ -21,21 +21,21 @@ public class Magasin implements Reduction{
 
 
             new HashMap<>(Map.of(
-                    "super slap bros", 2,
-                    "battleland 6", 2,
-                    "elden cube", 2,
-                    "surnautica", 2,
-                    "zagreus", 2,
-                    "Ghost of quimper", 2
+                    "super slap bros", 4,
+                    "battleland 6", 5,
+                    "elden cube", 5,
+                    "surnautica", 5,
+                    "zagreus", 5,
+                    "Ghost of quimper", 5
             )),
 
             new HashMap<>(Map.of(
-                    "Marius", 2,
-                    "Zeldo", 2,
-                    "cupper gear solid", 2,
-                    "BLESS", 2,
-                    "Alan sleep", 2,
-                    "père lachaise rider", 2
+                    "Marius", 4,
+                    "Zeldo", 5,
+                    "cupper gear solid", 5,
+                    "BLESS", 5,
+                    "Alan sleep", 5,
+                    "père lachaise rider", 5
             )),
 
 
@@ -75,7 +75,7 @@ public class Magasin implements Reduction{
 
 
 
-
+    //constructeur de magasin
     public Magasin(int argent, boolean clientPresent, int prix, int prixOccase, int rachat, String[] devanture, int employe) {
         this.argent = argent;
         this.clientPresent = clientPresent;
@@ -151,7 +151,7 @@ public class Magasin implements Reduction{
         this.clientPresent = clientPresent;
     }
 
-
+    // accueil un client, un par un dans le magasin
     public void accueil() {
         if (clientPresent == false) {
             this.clientPresent = true;
@@ -162,7 +162,7 @@ public class Magasin implements Reduction{
         }
     }
 
-
+    // procède au paiment, si le client est présent
     public void paiment() {
 
         int save = getArgent();
@@ -232,7 +232,7 @@ public class Magasin implements Reduction{
 
 
 
-
+    // calcule le prix total du panier du client
     public int total() {
 
         int total = 0;
@@ -281,7 +281,7 @@ public class Magasin implements Reduction{
     }
 
 
-
+    //rachète le jeu que le client ramène
     public void racheter(String jeu) {
         if (this.argent >= this.rachat) {
             this.argent -= this.rachat;
@@ -298,7 +298,7 @@ public class Magasin implements Reduction{
         }
     }
 
-
+    // simule une journée
     public void day() {
         accueil();
         paiment();
@@ -306,10 +306,11 @@ public class Magasin implements Reduction{
     }
 
 
-
+    // ajoute un jeu dans le jeu vendu
     public void ajout(String jeu, boolean retro) {
         String[] ajoutJeu = new String[]{jeu};
 
+        //ajoute le jeu dans le gameliste retro et dans les dictionnaire de jeu d'occasion et de jeu neuf retro
         if (retro) {
             String[] ancienRetro = n.getGamelisteRetro();
             String[] concateneRetro = new String[ancienRetro.length + 1];
@@ -327,6 +328,8 @@ public class Magasin implements Reduction{
             HashMap<String, Integer> nouveauMap2 = new HashMap<>(o.getStockejeuRetroOccase());
             nouveauMap2.put(jeu,0);
             o.setStockejeuRetroOccase(nouveauMap2);
+
+            //ajoute le jeu dans le gameliste moderne et dans les dictionnaire de jeu d'occasion et de jeu neuf moderne
         } else {
             String[] ancienModerne = n.getGameliste();
             String[] concateneModerne = new String[ancienModerne.length + 1];
@@ -348,6 +351,7 @@ public class Magasin implements Reduction{
 
         }
 
+        // mets a jour la vitrine du magasin
         String[] ancienDevanture = getDevanture();
         String[] nouvelleDevanture = new String[ancienDevanture.length + 1];
         System.arraycopy(ancienDevanture, 0, nouvelleDevanture, 0, ancienDevanture.length);
@@ -355,6 +359,7 @@ public class Magasin implements Reduction{
         setDevanture(nouvelleDevanture);
     }
 
+    //permet d'ajouté un employer et donc de gerer plus de stock
     public void nouvelEmployer(){
         e.embauche(this.argent);
         n.setStokelevel(e.getNbEmploie());
@@ -366,9 +371,13 @@ public class Magasin implements Reduction{
         return prix;
     }
 
+    // fais appelle au fonction de restock des jeu neuf
     public void restockGeneral(){
-        n.restock(n.getGameliste(),this.argent,n.getStockejeuModerne());
-        n.restockRetro(n.getGamelisteRetro(),this.argent,n.getStockejeuRetro());
+        n.restock(n.getGameliste(),n.getStockejeuModerne());
+        setArgent(this.argent + n.getCout());
+        n.restockRetro(n.getGamelisteRetro(),n.getStockejeuRetro());
+        setArgent(this.argent + n.getCout());
+        n.setCout(0);
     }
 
 }
