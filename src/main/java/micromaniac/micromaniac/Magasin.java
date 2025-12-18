@@ -366,4 +366,9 @@ public class Magasin implements Reduction{
         return prix;
     }
 
+    public void restockGeneral(){
+        n.restock(n.getGameliste(),this.argent,n.getStockejeuModerne());
+        n.restockRetro(n.getGamelisteRetro(),this.argent,n.getStockejeuRetro());
+    }
+
 }
