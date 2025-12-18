@@ -94,11 +94,11 @@ public class Stock {
         System.out.println("selectionne");
     }
 
-    public void restock(String[] listeExemplaire , float cout, HashMap<String, Integer> stockejeu) {
+    public void restock(String[] listeExemplaire , int cout, HashMap<String, Integer> stockejeu) {
         System.out.println("restock moderne");
     }
 
-    public void restockRetro(String[] listeExemplaire , float cout, HashMap<String, Integer> stockejeu) {
+    public void restockRetro(String[] listeExemplaire , int cout, HashMap<String, Integer> stockejeu) {
         System.out.println("restock Retro");
     }
 

@@ -1,5 +1,4 @@
 package micromaniac.micromaniac;
-
 import java.util.*;
 
 
@@ -15,7 +14,7 @@ abstract class Magasin implements Reduction{
     private int employe;
     private int promo;
 
-
+    Emploie e = new Emploie(1);
     Panier client = new Panier(new String[]{ " ", " ", " ", " ", " "});
     Neuf n = new Neuf(
             1,
@@ -172,6 +171,7 @@ abstract class Magasin implements Reduction{
         if (clientPresent == true) {
 
             int c = 0;
+            int d=0;
 
             for (int i = 0; i <= client.getPanier().length - 1; i++) {
 
@@ -183,7 +183,7 @@ abstract class Magasin implements Reduction{
 
                         if (o.getStockejeuRetroOccase().get(client.getPanier()[i]) > 0) {
                             o.selectionneOccaseRetro(client.getPanier()[i], o.getStockejeuRetro());
-                            c += 1;
+                            d += 1;
 
                         } else if (n.getStockejeuRetro().get(client.getPanier()[i]) > 0){
                             n.selectionneRetro(client.getPanier()[i], n.getStockejeuRetro());
@@ -198,7 +198,7 @@ abstract class Magasin implements Reduction{
                         if (o.getStockejeuModerneOccase().get(client.getPanier()[i]) > 0) {
 
                             o.selectionneOccase(client.getPanier()[i], o.getStockejeuModerne());
-                            c += 1;
+                            d += 1;
 
                         } else if (n.getStockejeuModerne().get(client.getPanier()[i]) > 0){
                             n.selectionne(client.getPanier()[i], n.getStockejeuModerne());
@@ -212,7 +212,7 @@ abstract class Magasin implements Reduction{
                 }
 
             }
-            this.argent += this.prix * c;
+            this.argent += this.prix * c + this.prixOcasse * d;
             setClientPresent(false);
             if (getArgent() != save) {
                 System.out.println("paiment accepté");
@@ -229,41 +229,46 @@ abstract class Magasin implements Reduction{
 
 
     public int total() {
-        int save = getArgent();
 
         int total = 0;
-        int c = 0; // compteur de jeux achetés neuf
-        int d = 0; // compteur de jeux achetés retro
+        int c = 0;
+        int d = 0;
 
-        for (String jeu : client.getPanier()) {
-            if (jeu.equals(" ")) continue;
+        for (int i = 0; i <= client.getPanier().length - 1; i++) {
 
-            boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(jeu);
+            if (!client.getPanier()[i].equals(" ")) {
 
-            if (retro) {
-                // Jeu rétro
-                if (o.getStockejeuRetroOccase().getOrDefault(jeu, 0) > 0) {
+                boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(client.getPanier()[i]);
 
-                    d++;
-                } else if (n.getStockejeuRetro().getOrDefault(jeu, 0) > 0) {
+                if (retro) {
 
-                    d++;
+                    if (o.getStockejeuRetroOccase().get(client.getPanier()[i]) > 0) {
+                        d += 1;
+
+                    } else if (n.getStockejeuRetro().get(client.getPanier()[i]) > 0) {
+                        c += 1;
+
+                    } else {
+                        c += 0;
+                        System.out.print("pas assez");
+                    }
                 } else {
-                    System.out.println("Pas assez de stock rétro pour : " + jeu);
-                }
-            } else {
-                // Jeu moderne
-                if (o.getStockejeuModerneOccase().getOrDefault(jeu, 0) > 0) {
 
-                    c++;
-                } else if (n.getStockejeuModerne().getOrDefault(jeu, 0) > 0) {
+                    if (o.getStockejeuModerneOccase().get(client.getPanier()[i]) > 0) {
+                        d += 1;
 
-                    c++;
-                } else {
-                    System.out.println("Pas assez de stock moderne pour : " + jeu);
+                    } else if (n.getStockejeuModerne().get(client.getPanier()[i]) > 0) {
+                        c += 1;
+
+                    } else {
+                        c += 0;
+                        System.out.print("pas assez");
+                    }
                 }
             }
+
         }
+
 
         // Paiement
         total += this.prix * c + this.prixOcasse * d;
@@ -295,18 +300,15 @@ abstract class Magasin implements Reduction{
         System.out.println(getArgent());
     }
 
-
-    public void embauche() {
-        System.out.print("vous avez recruté un employé");
-    }
-
     public void reduc(int level, int prix){
         prix = (prix * (100 - level*10))/100;
+        System.out.println("reduc");
     }
 
     public void superPromo(boolean verif, int sup){
         verif = true;
         this.promo = sup;
+        System.out.println("promo");
     }
 
     public void ajout(String jeu, boolean retro) {
@@ -355,6 +357,11 @@ abstract class Magasin implements Reduction{
         System.arraycopy(ancienDevanture, 0, nouvelleDevanture, 0, ancienDevanture.length);
         nouvelleDevanture[ancienDevanture.length] = jeu;
         setDevanture(nouvelleDevanture);
+    }
+
+    public void nouvelEmployer(){
+        e.embauche(this.argent);
+        n.setStokelevel(e.getNbEmploie());
     }
 
 }

@@ -21,10 +21,10 @@ public class Neuf extends Stock{
     }
 
     @Override
-    public void restock(String[] listeExemplaire , float cout, HashMap<String, Integer> stockejeu) {
+    public void restock(String[] listeExemplaire , int cout, HashMap<String, Integer> stockejeu) {
         for (int y = 0; y <= listeExemplaire.length - 1; y++) {
-            cout = cout +(50*((5)-stockejeu.get(listeExemplaire[y])));
-            stockejeu.put(listeExemplaire[y], (5));
+            cout = cout -(50*((5)-stockejeu.get(listeExemplaire[y])));
+            stockejeu.put(listeExemplaire[y], (5*this.getStokelevel()));
         }
     }
 
@@ -37,10 +37,10 @@ public class Neuf extends Stock{
     }
 
     @Override
-    public void restockRetro(String[] listeExemplaire , float cout, HashMap<String, Integer> stockejeu) {
+    public void restockRetro(String[] listeExemplaire , int cout, HashMap<String, Integer> stockejeu) {
         for (int y = 0; y <= listeExemplaire.length - 1; y++) {
-            cout = cout +(50*((5)-stockejeu.get(listeExemplaire[y])));
-            stockejeu.put(listeExemplaire[y], (5));
+            cout = cout -(50*((5)-stockejeu.get(listeExemplaire[y])));
+            stockejeu.put(listeExemplaire[y], (5*this.getStokelevel()));
         }
     }
 }
