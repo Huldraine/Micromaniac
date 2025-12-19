@@ -8,6 +8,7 @@ public class Magasin implements Reduction{
 
     private int argent;
     private boolean clientPresent;
+    private boolean rachatPossible;
     private int prix;
     private int prixOccase;
     private int rachat;
@@ -156,9 +157,9 @@ public class Magasin implements Reduction{
         if (clientPresent == false) {
             this.clientPresent = true;
             client.choixPanier(this.devanture, client.getPanier());
-            System.out.println("Bien le bonjour");
+            System.out.println("bien le bonjour");
         } else {
-            System.out.println("Il y a deja un client qui attend son tour");
+            System.out.println("il y a déjà un client qui attend sont tour");
         }
     }
 
@@ -220,12 +221,12 @@ public class Magasin implements Reduction{
             this.argent += total;
             setClientPresent(false);
             if (getArgent() != save) {
-                System.out.println("Paiment accepte");
+                System.out.println("paiment accepté");
             } else {
-                System.out.println("Le client n'a rien achete");
+                System.out.println("le client n'a rien acheté");
             }
         } else {
-            System.out.println("Il y a deja un client qui attend son tour");
+            System.out.println("il y a déjà un client qui attend sont tour");
         }
     }
 
@@ -255,7 +256,7 @@ public class Magasin implements Reduction{
 
                     } else {
                         c += 0;
-                        System.out.print("Pas assez");
+                        System.out.print("pas assez");
                     }
                 } else {
 
@@ -267,7 +268,7 @@ public class Magasin implements Reduction{
 
                     } else {
                         c += 0;
-                        System.out.print("Pas assez");
+                        System.out.print("pas assez");
                     }
                 }
             }
@@ -294,7 +295,7 @@ public class Magasin implements Reduction{
             }
 
         } else {
-            System.out.println("Argent insuffisant pour le rachat du jeu");
+            System.out.println("argent insuffisant pour le rachat du jeu");
         }
     }
 
