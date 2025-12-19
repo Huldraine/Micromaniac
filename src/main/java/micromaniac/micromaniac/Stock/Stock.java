@@ -3,7 +3,7 @@ package micromaniac.micromaniac.Stock;
 import java.util.HashMap;
 
 
-public class Stock {
+public abstract class Stock {
 
 
     private int stokeLevel;
