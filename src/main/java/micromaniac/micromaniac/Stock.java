@@ -22,7 +22,7 @@ public class Stock {
         this.stockejeuRetro = stockejeuRetro;
         this.gameliste = gameliste;
         this.gamelisteRetro = gamelisteRetro;
-        this.cout = 35;
+        this.cout = 0;
     }
 
     public Stock(int stokelevel, HashMap<String, Integer> stockejeuModerneOccase, HashMap<String, Integer> stockejeuRetroOccase) {

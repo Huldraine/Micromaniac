@@ -21,7 +21,7 @@ public class Magasin implements Reduction{
 
 
             new HashMap<>(Map.of(
-                    "super slap bros", 4,
+                    "super slap bros", 5,
                     "battleland 6", 5,
                     "elden cube", 5,
                     "surnautica", 5,
@@ -30,7 +30,7 @@ public class Magasin implements Reduction{
             )),
 
             new HashMap<>(Map.of(
-                    "Marius", 4,
+                    "Marius", 5,
                     "Zeldo", 5,
                     "cupper gear solid", 5,
                     "BLESS", 5,
@@ -373,11 +373,10 @@ public class Magasin implements Reduction{
 
     // fais appelle au fonction de restock des jeu neuf
     public void restockGeneral(){
-        n.restock(n.getGameliste(),n.getStockejeuModerne());
-        setArgent(this.argent + n.getCout());
-        n.restockRetro(n.getGamelisteRetro(),n.getStockejeuRetro());
-        setArgent(this.argent + n.getCout());
-        n.setCout(0);
+
+        n.restock(n.getGameliste(), n.getStockejeuModerne());
+        n.restockRetro(n.getGamelisteRetro(), n.getStockejeuRetro());
+        setArgent(this.argent - n.getCout());
     }
 
 }

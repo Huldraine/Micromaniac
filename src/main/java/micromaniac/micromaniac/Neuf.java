@@ -24,11 +24,10 @@ public class Neuf extends Stock{
     //remets le stock au maximum des jeu neuf
     @Override
     public void restock(String[] listeExemplaire, HashMap<String, Integer> stockejeu) {
-        int total = 0;
-        for (int y = 0; y <= listeExemplaire.length - 1; y++) {
-            total = getCout()-(50*((5)-stockejeu.get(listeExemplaire[y])));
-            setCout(total);
-            stockejeu.put(listeExemplaire[y], (5*this.getStokelevel()));
+        for (String jeu : listeExemplaire) {
+            int manque = 30*((5 * getStokelevel()) - stockejeu.get(jeu));
+            setCout(getCout()+ manque);
+            stockejeu.put(jeu, 5 * getStokelevel());
         }
     }
 
@@ -42,12 +41,12 @@ public class Neuf extends Stock{
 
     //remets le stock au maximum des jeux retro
     @Override
-    public void restockRetro(String[] listeExemplaire , HashMap<String, Integer> stockejeu) {
-        int total =0;
-        for (int y = 0; y <= listeExemplaire.length - 1; y++) {
-            total =  getCout()-(50*((5)-stockejeu.get(listeExemplaire[y])));
-            setCout(total);
-            stockejeu.put(listeExemplaire[y], (5*this.getStokelevel()));
+    public void restockRetro(String[] listeExemplaire, HashMap<String, Integer> stockejeu) {
+
+        for (String jeu : listeExemplaire) {
+            int manque = 20*((5 * getStokelevel()) - stockejeu.get(jeu));
+            setCout(getCout()+ manque);
+            stockejeu.put(jeu, 5 * getStokelevel());
         }
     }
 }
