@@ -6,29 +6,29 @@ import java.util.HashMap;
 public class Stock {
 
 
-    private int stokelevel;
+    private int stokeLevel;
     private int cout;
-    private HashMap<String, Integer> stockejeuRetro;
-    private HashMap<String, Integer> stockejeuModerne;
-    private HashMap<String, Integer> stockejeuRetroOccase;
-    private HashMap<String, Integer> stockejeuModerneOccase;
-    private String[] gameliste;
-    private String[] gamelisteRetro;
+    private HashMap<String, Integer> stockeJeuRetro;
+    private HashMap<String, Integer> stockeJeuModerne;
+    private HashMap<String, Integer> stockeJeuRetroOccase;
+    private HashMap<String, Integer> stockeJeuModerneOccase;
+    private String[] gameListe;
+    private String[] gameListeRetro;
 
 
-    public Stock(int stokelevel,  HashMap<String, Integer> stockejeuModerne, HashMap<String, Integer> stockejeuRetro, String[] gameliste, String[] gamelisteRetro) {
-        this.stokelevel = stokelevel;
-        this.stockejeuModerne = stockejeuModerne;
-        this.stockejeuRetro = stockejeuRetro;
-        this.gameliste = gameliste;
-        this.gamelisteRetro = gamelisteRetro;
+    public Stock(int stokeLevel,  HashMap<String, Integer> stockeJeuModerne, HashMap<String, Integer> stockeJeuRetro, String[] gameListe, String[] gameListeRetro) {
+        this.stokeLevel = stokeLevel;
+        this.stockeJeuModerne = stockeJeuModerne;
+        this.stockeJeuRetro = stockeJeuRetro;
+        this.gameListe = gameListe;
+        this.gameListeRetro = gameListeRetro;
         this.cout = 0;
     }
 
-    public Stock(int stokelevel, HashMap<String, Integer> stockejeuModerneOccase, HashMap<String, Integer> stockejeuRetroOccase) {
-        this.stokelevel = stokelevel;
-        this.stockejeuModerneOccase = stockejeuModerneOccase;
-        this.stockejeuRetroOccase = stockejeuRetroOccase;
+    public Stock(int stokeLevel, HashMap<String, Integer> stockeJeuModerneOccase, HashMap<String, Integer> stockeJeuRetroOccase) {
+        this.stokeLevel = stokeLevel;
+        this.stockeJeuModerneOccase = stockeJeuModerneOccase;
+        this.stockeJeuRetroOccase = stockeJeuRetroOccase;
     }
 
 
@@ -40,62 +40,61 @@ public class Stock {
         this.cout = cout;
     }
 
-    public HashMap<String, Integer> getStockejeuRetroOccase() {
-        return stockejeuRetroOccase;
+    public int getStokeLevel() {
+        return stokeLevel;
     }
 
-    public void setStockejeuRetroOccase(HashMap<String, Integer> stockejeuRetroOccase) {
-        this.stockejeuRetroOccase = stockejeuRetroOccase;
+    public void setStokeLevel(int stokeLevel) {
+        this.stokeLevel = stokeLevel;
     }
 
-    public HashMap<String, Integer> getStockejeuModerneOccase() {
-        return stockejeuModerneOccase;
+    public HashMap<String, Integer> getStockeJeuRetro() {
+        return stockeJeuRetro;
     }
 
-    public void setStockejeuModerneOccase(HashMap<String, Integer> stockejeuModerneOccase) {
-        this.stockejeuModerneOccase = stockejeuModerneOccase;
+    public void setStockeJeuRetro(HashMap<String, Integer> stockeJeuRetro) {
+        this.stockeJeuRetro = stockeJeuRetro;
     }
 
-    public String[] getGamelisteRetro() {
-        return gamelisteRetro;
+    public HashMap<String, Integer> getStockeJeuModerne() {
+        return stockeJeuModerne;
     }
 
-    public void setGamelisteRetro(String[] gamelisteRetro) {
-        this.gamelisteRetro = gamelisteRetro;
+    public void setStockeJeuModerne(HashMap<String, Integer> stockeJeuModerne) {
+        this.stockeJeuModerne = stockeJeuModerne;
     }
 
-    public String[] getGameliste() {
-        return gameliste;
+    public HashMap<String, Integer> getStockeJeuRetroOccase() {
+        return stockeJeuRetroOccase;
     }
 
-    public void setGameliste(String[] gameliste) {
-        this.gameliste = gameliste;
+    public void setStockeJeuRetroOccase(HashMap<String, Integer> stockeJeuRetroOccase) {
+        this.stockeJeuRetroOccase = stockeJeuRetroOccase;
     }
 
-    public int getStokelevel() {
-        return stokelevel;
+    public HashMap<String, Integer> getStockeJeuModerneOccase() {
+        return stockeJeuModerneOccase;
     }
 
-    public void setStokelevel(int stokelevel) {
-        this.stokelevel = stokelevel;
+    public void setStockeJeuModerneOccase(HashMap<String, Integer> stockeJeuModerneOccase) {
+        this.stockeJeuModerneOccase = stockeJeuModerneOccase;
     }
 
-    public HashMap<String, Integer> getStockejeuModerne() {
-        return stockejeuModerne;
+    public String[] getGameListe() {
+        return gameListe;
     }
 
-    public void setStockejeuModerne(HashMap<String, Integer> stockejeuModerne) {
-        this.stockejeuModerne = stockejeuModerne;
+    public void setGameListe(String[] gameListe) {
+        this.gameListe = gameListe;
     }
 
-    public HashMap<String, Integer> getStockejeuRetro() {
-        return stockejeuRetro;
+    public String[] getGameListeRetro() {
+        return gameListeRetro;
     }
 
-    public void setStockejeuRetro(HashMap<String, Integer> stockejeuRetro) {
-        this.stockejeuRetro = stockejeuRetro;
+    public void setGameListeRetro(String[] gameListeRetro) {
+        this.gameListeRetro = gameListeRetro;
     }
-
 
     public void selectionne(String jeu, HashMap<String, Integer> stockejeu){
         System.out.println("selectionne");
