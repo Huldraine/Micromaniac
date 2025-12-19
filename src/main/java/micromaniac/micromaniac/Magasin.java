@@ -156,9 +156,9 @@ public class Magasin implements Reduction{
         if (clientPresent == false) {
             this.clientPresent = true;
             client.choixPanier(this.devanture, client.getPanier());
-            System.out.println("bien le bonjour");
+            System.out.println("Bien le bonjour");
         } else {
-            System.out.println("il y a déjà un client qui attend sont tour");
+            System.out.println("Il y a deja un client qui attend son tour");
         }
     }
 
@@ -220,12 +220,12 @@ public class Magasin implements Reduction{
             this.argent += total;
             setClientPresent(false);
             if (getArgent() != save) {
-                System.out.println("paiment accepté");
+                System.out.println("Paiment accepte");
             } else {
-                System.out.println("le client n'a rien acheté");
+                System.out.println("Le client n'a rien achete");
             }
         } else {
-            System.out.println("il y a déjà un client qui attend sont tour");
+            System.out.println("Il y a deja un client qui attend son tour");
         }
     }
 
@@ -255,7 +255,7 @@ public class Magasin implements Reduction{
 
                     } else {
                         c += 0;
-                        System.out.print("pas assez");
+                        System.out.print("Pas assez");
                     }
                 } else {
 
@@ -267,7 +267,7 @@ public class Magasin implements Reduction{
 
                     } else {
                         c += 0;
-                        System.out.print("pas assez");
+                        System.out.print("Pas assez");
                     }
                 }
             }
@@ -294,7 +294,7 @@ public class Magasin implements Reduction{
             }
 
         } else {
-            System.out.println("argent insuffisant pour le rachat du jeu");
+            System.out.println("Argent insuffisant pour le rachat du jeu");
         }
     }
 
