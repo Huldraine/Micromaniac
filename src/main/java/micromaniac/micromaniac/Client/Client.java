@@ -1,4 +1,4 @@
-package micromaniac.micromaniac;
+package micromaniac.micromaniac.Client;
 
 import java.util.Random;
 

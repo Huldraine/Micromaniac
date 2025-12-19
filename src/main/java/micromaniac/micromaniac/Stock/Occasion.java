@@ -1,10 +1,9 @@
-package micromaniac.micromaniac;
+package micromaniac.micromaniac.Stock;
 
 import java.util.HashMap;
-import java.util.Map;
 
 
-public class Occasion extends Stock{
+public class Occasion extends Stock {
 
 
     public Occasion(int stokeLevel,

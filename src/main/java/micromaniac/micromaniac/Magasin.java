@@ -1,5 +1,12 @@
 package micromaniac.micromaniac;
 
+import micromaniac.micromaniac.Client.Client;
+import micromaniac.micromaniac.Client.Panier;
+import micromaniac.micromaniac.Emploie.Emploie;
+import micromaniac.micromaniac.Stock.Neuf;
+import micromaniac.micromaniac.Stock.Occasion;
+
+
 import java.util.*;
 
 
@@ -89,6 +96,8 @@ public class Magasin implements Reduction{
     }
 
 
+
+
     public boolean isRachatPossible() {
         return rachatPossible;
     }
@@ -161,6 +170,8 @@ public class Magasin implements Reduction{
         this.clientPresent = clientPresent;
     }
 
+
+
     // accueil un client, un par un dans le magasin
     public void accueil() {
         if (clientPresent == false) {
@@ -173,6 +184,8 @@ public class Magasin implements Reduction{
             System.out.println("Il y a déjà un client qui attend son tour");
         }
     }
+
+
 
     // procède au paiment, si le client est présent
     public void paiment() {
@@ -314,7 +327,8 @@ public class Magasin implements Reduction{
         setRachatPossible(false);
     }
 
-    // simule une journée
+
+    // simule une journée pour les crash test
     public void day() {
         accueil();
         paiment();
@@ -375,17 +389,23 @@ public class Magasin implements Reduction{
         setDevanture(nouvelleDevanture);
     }
 
+
+
     //permet d'ajouté un employer et donc de gerer plus de stock
     public void nouvelEmployer(){
         e.embauche(this.argent);
         n.setStokeLevel(e.getNbEmploie());
     }
 
+
+
     @Override
     public int reduc(int level, int prix){
         prix = (prix * (100 - level*10))/100;
         return prix;
     }
+
+
 
     // fais appelle au fonction de restock des jeu neuf
     public void restockGeneral(){

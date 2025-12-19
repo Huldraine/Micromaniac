@@ -1,8 +1,8 @@
-package micromaniac.micromaniac;
+package micromaniac.micromaniac.Client;
 
 import java.util.Random;
 
-public class Panier extends Client{
+public class Panier extends Client {
 
 
     public Panier(String[] panier) {

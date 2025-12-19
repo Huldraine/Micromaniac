@@ -1,4 +1,4 @@
-package micromaniac.micromaniac;
+package micromaniac.micromaniac.Emploie;
 
 public class Emploie {
 

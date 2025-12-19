@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import micromaniac.micromaniac.Client.Client;
 
 import java.util.ArrayList;
 import java.util.List;
