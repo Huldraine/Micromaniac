@@ -240,9 +240,9 @@ public class Magasin implements Reduction{
             System.out.println(client.getFidelity());
             total =this.prix * c + this.prixOccase * d;
             System.out.println(total);
-            reduc(client.getFidelity(), total);
-            System.out.println(total);
-            this.argent += total;
+            int fin =reduc(client.getFidelity(), total);
+            System.out.println(fin);
+            this.argent += fin;
             setClientPresent(false);
             if (getArgent() != save) {
                 System.out.println("Paiment accepté");
@@ -302,7 +302,8 @@ public class Magasin implements Reduction{
 
         // Paiement
         total += this.prix * c + this.prixOccase * d;
-        return total;
+        int fin =reduc(client.getFidelity(), total);
+        return fin;
     }
 
 
