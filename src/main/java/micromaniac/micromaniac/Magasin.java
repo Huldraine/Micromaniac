@@ -8,6 +8,7 @@ public class Magasin implements Reduction{
 
     private int argent;
     private boolean clientPresent;
+    private boolean rachatPossible;
     private int prix;
     private int prixOccase;
     private int rachat;
@@ -79,6 +80,7 @@ public class Magasin implements Reduction{
     public Magasin(int argent, boolean clientPresent, int prix, int prixOccase, int rachat, String[] devanture, int employe) {
         this.argent = argent;
         this.clientPresent = clientPresent;
+        this.rachatPossible = false;
         this.prix = prix;
         this.prixOccase = prixOccase;
         this.rachat = rachat;
@@ -86,6 +88,14 @@ public class Magasin implements Reduction{
         this.employe = employe;
     }
 
+
+    public boolean isRachatPossible() {
+        return rachatPossible;
+    }
+
+    public void setRachatPossible(boolean rachatPossible) {
+        this.rachatPossible = rachatPossible;
+    }
 
     public int getPrixOcasse() {
         return prixOccase;
@@ -155,6 +165,7 @@ public class Magasin implements Reduction{
     public void accueil() {
         if (clientPresent == false) {
             this.clientPresent = true;
+            this.rachatPossible = true;
             client.choixPanier(this.devanture, client.getPanier());
             System.out.println("bien le bonjour");
         } else {
@@ -283,19 +294,23 @@ public class Magasin implements Reduction{
 
     //rachète le jeu que le client ramène
     public void racheter(String jeu) {
-        if (this.argent >= this.rachat) {
-            this.argent -= this.rachat;
-            System.out.println(jeu);
-            boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(jeu);
-            if (retro) {
-                o.restockOccase(jeu, o.getStockejeuRetroOccase());
+        if (this.rachatPossible) {
+            if (this.argent >= this.rachat) {
+                this.argent -= this.rachat;
+                System.out.println(jeu);
+                boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(jeu);
+                if (retro) {
+                    o.restockOccase(jeu, o.getStockejeuRetroOccase());
+                } else {
+                    o.restockOccase(jeu, o.getStockejeuModerneOccase());
+                }
+
             } else {
-                o.restockOccase(jeu, o.getStockejeuModerneOccase());
+                System.out.println("argent insuffisant pour le rachat du jeu");
             }
 
-        } else {
-            System.out.println("argent insuffisant pour le rachat du jeu");
         }
+        setRachatPossible(false);
     }
 
     // simule une journée
