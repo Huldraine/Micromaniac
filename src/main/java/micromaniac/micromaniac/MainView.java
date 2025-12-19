@@ -194,7 +194,7 @@ public class MainView extends BorderPane {
         embauche.setOnAction(e -> {
             int newArgent = magasin.e.embauche(magasin.getArgent());
             magasin.setArgent(newArgent);
-            magasin.n.setStokelevel(magasin.e.getNbEmploie());
+            magasin.n.setStokeLevel(magasin.e.getNbEmploie());
             refreshAll();
         });
 
@@ -233,17 +233,17 @@ public class MainView extends BorderPane {
     private ObservableList<InventaireStock> buildInventaire() {
         ObservableList<InventaireStock> rows = FXCollections.observableArrayList();
 
-        for (Map.Entry<String, Integer> e : magasin.n.getStockejeuModerne().entrySet()) {
+        for (Map.Entry<String, Integer> e : magasin.n.getStockeJeuModerne().entrySet()) {
             String jeu = e.getKey();
             int neuf = e.getValue();
-            int occ = magasin.o.getStockejeuModerneOccase().getOrDefault(jeu, 0);
+            int occ = magasin.o.getStockeJeuModerneOccase().getOrDefault(jeu, 0);
             rows.add(new InventaireStock(jeu, "Moderne", neuf, occ));
         }
 
-        for (Map.Entry<String, Integer> e : magasin.n.getStockejeuRetro().entrySet()) {
+        for (Map.Entry<String, Integer> e : magasin.n.getStockeJeuRetro().entrySet()) {
             String jeu = e.getKey();
             int neuf = e.getValue();
-            int occ = magasin.o.getStockejeuRetroOccase().getOrDefault(jeu, 0);
+            int occ = magasin.o.getStockeJeuRetroOccase().getOrDefault(jeu, 0);
             rows.add(new InventaireStock(jeu, "Rétro", neuf, occ));
         }
 

@@ -189,16 +189,16 @@ public class Magasin implements Reduction{
 
                 if (!client.getPanier()[i].equals(" ")) {
 
-                    boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(client.getPanier()[i]);
+                    boolean retro = Arrays.asList(n.getGameListeRetro()).contains(client.getPanier()[i]);
 
                     if (retro) {
 
-                        if (o.getStockejeuRetroOccase().get(client.getPanier()[i]) > 0) {
-                            o.selectionneOccaseRetro(client.getPanier()[i], o.getStockejeuRetro());
+                        if (o.getStockeJeuRetroOccase().get(client.getPanier()[i]) > 0) {
+                            o.selectionneOccaseRetro(client.getPanier()[i], o.getStockeJeuRetro());
                             d += 1;
 
-                        } else if (n.getStockejeuRetro().get(client.getPanier()[i]) > 0){
-                            n.selectionneRetro(client.getPanier()[i], n.getStockejeuRetro());
+                        } else if (n.getStockeJeuRetro().get(client.getPanier()[i]) > 0){
+                            n.selectionneRetro(client.getPanier()[i], n.getStockeJeuRetro());
                             c += 1;
 
                         } else {
@@ -207,13 +207,13 @@ public class Magasin implements Reduction{
                         }
                     } else {
 
-                        if (o.getStockejeuModerneOccase().get(client.getPanier()[i]) > 0) {
+                        if (o.getStockeJeuModerneOccase().get(client.getPanier()[i]) > 0) {
 
-                            o.selectionneOccase(client.getPanier()[i], o.getStockejeuModerne());
+                            o.selectionneOccase(client.getPanier()[i], o.getStockeJeuModerne());
                             d += 1;
 
-                        } else if (n.getStockejeuModerne().get(client.getPanier()[i]) > 0){
-                            n.selectionne(client.getPanier()[i], n.getStockejeuModerne());
+                        } else if (n.getStockeJeuModerne().get(client.getPanier()[i]) > 0){
+                            n.selectionne(client.getPanier()[i], n.getStockeJeuModerne());
                             c += 1;
 
                         } else {
@@ -255,31 +255,31 @@ public class Magasin implements Reduction{
 
             if (!client.getPanier()[i].equals(" ")) {
 
-                boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(client.getPanier()[i]);
+                boolean retro = Arrays.asList(n.getGameListeRetro()).contains(client.getPanier()[i]);
 
                 if (retro) {
 
-                    if (o.getStockejeuRetroOccase().get(client.getPanier()[i]) > 0) {
+                    if (o.getStockeJeuRetroOccase().get(client.getPanier()[i]) > 0) {
                         d += 1;
 
-                    } else if (n.getStockejeuRetro().get(client.getPanier()[i]) > 0) {
+                    } else if (n.getStockeJeuRetro().get(client.getPanier()[i]) > 0) {
                         c += 1;
 
                     } else {
                         c += 0;
-                        System.out.print("pas assez");
+                        System.out.print("pas assez dans occasion");
                     }
                 } else {
 
-                    if (o.getStockejeuModerneOccase().get(client.getPanier()[i]) > 0) {
+                    if (o.getStockeJeuModerneOccase().get(client.getPanier()[i]) > 0) {
                         d += 1;
 
-                    } else if (n.getStockejeuModerne().get(client.getPanier()[i]) > 0) {
+                    } else if (n.getStockeJeuModerne().get(client.getPanier()[i]) > 0) {
                         c += 1;
 
                     } else {
                         c += 0;
-                        System.out.print("pas assez");
+                        System.out.print("pas assez de jeux dans les stock");
                     }
                 }
             }
@@ -299,11 +299,11 @@ public class Magasin implements Reduction{
             if (this.argent >= this.rachat) {
                 this.argent -= this.rachat;
                 System.out.println(jeu);
-                boolean retro = Arrays.asList(n.getGamelisteRetro()).contains(jeu);
+                boolean retro = Arrays.asList(n.getGameListeRetro()).contains(jeu);
                 if (retro) {
-                    o.restockOccase(jeu, o.getStockejeuRetroOccase());
+                    o.restockOccase(jeu, o.getStockeJeuRetroOccase());
                 } else {
-                    o.restockOccase(jeu, o.getStockejeuModerneOccase());
+                    o.restockOccase(jeu, o.getStockeJeuModerneOccase());
                 }
 
             } else {
@@ -328,41 +328,41 @@ public class Magasin implements Reduction{
 
         //ajoute le jeu dans le gameliste retro et dans les dictionnaire de jeu d'occasion et de jeu neuf retro
         if (retro) {
-            String[] ancienRetro = n.getGamelisteRetro();
+            String[] ancienRetro = n.getGameListeRetro();
             String[] concateneRetro = new String[ancienRetro.length + 1];
 
             System.arraycopy(ancienRetro, 0, concateneRetro, 0, ancienRetro.length);
             System.arraycopy(ajoutJeu, 0, concateneRetro, ancienRetro.length, 1);
 
-            n.setGamelisteRetro(concateneRetro);
+            n.setGameListeRetro(concateneRetro);
 
-            HashMap<String, Integer> nouveauMap = new HashMap<>(n.getStockejeuRetro());
+            HashMap<String, Integer> nouveauMap = new HashMap<>(n.getStockeJeuRetro());
             nouveauMap.put(jeu,0);
-            n.setStockejeuRetro(nouveauMap);
+            n.setStockeJeuRetro(nouveauMap);
 
 
-            HashMap<String, Integer> nouveauMap2 = new HashMap<>(o.getStockejeuRetroOccase());
+            HashMap<String, Integer> nouveauMap2 = new HashMap<>(o.getStockeJeuRetroOccase());
             nouveauMap2.put(jeu,0);
-            o.setStockejeuRetroOccase(nouveauMap2);
+            o.setStockeJeuRetroOccase(nouveauMap2);
 
             //ajoute le jeu dans le gameliste moderne et dans les dictionnaire de jeu d'occasion et de jeu neuf moderne
         } else {
-            String[] ancienModerne = n.getGameliste();
+            String[] ancienModerne = n.getGameListe();
             String[] concateneModerne = new String[ancienModerne.length + 1];
 
             System.arraycopy(ancienModerne, 0, concateneModerne, 0, ancienModerne.length);
             System.arraycopy(ajoutJeu, 0, concateneModerne, ancienModerne.length, 1);
 
-            n.setGameliste(concateneModerne);
+            n.setGameListe(concateneModerne);
 
-            HashMap<String, Integer> nouveauMap3 = new HashMap<>(n.getStockejeuModerne());
+            HashMap<String, Integer> nouveauMap3 = new HashMap<>(n.getStockeJeuModerne());
             nouveauMap3.put(jeu,0);
-            n.setStockejeuModerne(nouveauMap3);
+            n.setStockeJeuModerne(nouveauMap3);
 
 
-            HashMap<String, Integer> nouveauMap4 = new HashMap<>(o.getStockejeuModerneOccase());
+            HashMap<String, Integer> nouveauMap4 = new HashMap<>(o.getStockeJeuModerneOccase());
             nouveauMap4.put(jeu,0);
-            o.setStockejeuModerneOccase(nouveauMap4);
+            o.setStockeJeuModerneOccase(nouveauMap4);
 
 
         }
@@ -378,7 +378,7 @@ public class Magasin implements Reduction{
     //permet d'ajouté un employer et donc de gerer plus de stock
     public void nouvelEmployer(){
         e.embauche(this.argent);
-        n.setStokelevel(e.getNbEmploie());
+        n.setStokeLevel(e.getNbEmploie());
     }
 
     @Override
@@ -390,8 +390,8 @@ public class Magasin implements Reduction{
     // fais appelle au fonction de restock des jeu neuf
     public void restockGeneral(){
 
-        n.restock(n.getGameliste(), n.getStockejeuModerne());
-        n.restockRetro(n.getGamelisteRetro(), n.getStockejeuRetro());
+        n.restock(n.getGameListe(), n.getStockeJeuModerne());
+        n.restockRetro(n.getGameListeRetro(), n.getStockeJeuRetro());
         setArgent(this.argent - n.getCout());
     }
 

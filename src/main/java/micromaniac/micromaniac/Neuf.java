@@ -8,45 +8,45 @@ public class Neuf extends Stock{
 
 
 
-    public Neuf(int stokelevel, HashMap<String, Integer> stockejeuModerne, HashMap<String, Integer> stockejeuRetro, String[] gameliste, String[] gamelisteRetro) {
-        super(stokelevel, stockejeuModerne, stockejeuRetro, gameliste, gamelisteRetro);
+    public Neuf(int stokeLevel, HashMap<String, Integer> stockeJeuModerne, HashMap<String, Integer> stockeJeuRetro, String[] gameListe, String[] gameListeRetro) {
+        super(stokeLevel, stockeJeuModerne, stockeJeuRetro, gameListe, gameListeRetro);
     }
 
 
     // retire un jeu moderne du stock lors de l'achat
     @Override
-    public void selectionne(String jeu, HashMap<String, Integer> stockejeu){
-        stockejeu.put(jeu, stockejeu.get(jeu) - 1);
-        setStockejeuModerne(stockejeu);
+    public void selectionne(String jeu, HashMap<String, Integer> stockeJeu){
+        stockeJeu.put(jeu, stockeJeu.get(jeu) - 1);
+        setStockeJeuModerne(stockeJeu);
 
     }
 
     //remets le stock au maximum des jeu neuf
     @Override
-    public void restock(String[] listeExemplaire, HashMap<String, Integer> stockejeu) {
+    public void restock(String[] listeExemplaire, HashMap<String, Integer> stockeJeu) {
         for (String jeu : listeExemplaire) {
-            int manque = 30*((5 * getStokelevel()) - stockejeu.get(jeu));
+            int manque = 30*((5 * getStokeLevel()) - stockeJeu.get(jeu));
             setCout(getCout()+ manque);
-            stockejeu.put(jeu, 5 * getStokelevel());
+            stockeJeu.put(jeu, 5 * getStokeLevel());
         }
     }
 
     // retire un jeu moderne du stock lors de l'achat
     @Override
-    public void selectionneRetro(String jeu, HashMap<String, Integer> stockejeu){
-        stockejeu.put(jeu, stockejeu.get(jeu) - 1);
-        setStockejeuRetro(stockejeu);
+    public void selectionneRetro(String jeu, HashMap<String, Integer> stockeJeu){
+        stockeJeu.put(jeu, stockeJeu.get(jeu) - 1);
+        setStockeJeuRetro(stockeJeu);
 
     }
 
     //remets le stock au maximum des jeux retro
     @Override
-    public void restockRetro(String[] listeExemplaire, HashMap<String, Integer> stockejeu) {
+    public void restockRetro(String[] listeExemplaire, HashMap<String, Integer> stockeJeu) {
 
         for (String jeu : listeExemplaire) {
-            int manque = 20*((5 * getStokelevel()) - stockejeu.get(jeu));
+            int manque = 20*((5 * getStokeLevel()) - stockeJeu.get(jeu));
             setCout(getCout()+ manque);
-            stockejeu.put(jeu, 5 * getStokelevel());
+            stockeJeu.put(jeu, 5 * getStokeLevel());
         }
     }
 }
