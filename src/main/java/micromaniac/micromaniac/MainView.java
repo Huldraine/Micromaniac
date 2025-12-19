@@ -16,17 +16,20 @@ public class MainView extends BorderPane {
 
     private final Magasin magasin;
 
+    // Pages
     private final StackPane pages = new StackPane();
     private Node pageBoutique;
     private Node pageClient;
     private Node pageGestion;
+    private Node pageAjoutJeu;
 
-    private Label moneyLabel;
+    // Bas
+    private Label argentLabel;
 
     // Client
-    private ListView<String> clientCartList;
-    private Label clientTotalLabel;
-    private Label clientFidelityLabel;
+    private ListView<String> panierList;
+    private Label totalLabel;
+    private Label fideliteLabel;
 
     // Stock
     private TableView<InventaireStock> stockTable;
@@ -40,8 +43,9 @@ public class MainView extends BorderPane {
         pageBoutique = createBoutiquePage();
         pageClient = createClientPage();
         pageGestion = createGestionPage();
+        pageAjoutJeu = createAjoutJeuPage();
 
-        pages.getChildren().addAll(pageBoutique, pageClient, pageGestion);
+        pages.getChildren().addAll(pageBoutique, pageClient, pageGestion, pageAjoutJeu);
         show(pageBoutique);
 
         setCenter(pages);
@@ -50,23 +54,26 @@ public class MainView extends BorderPane {
         refreshAll();
     }
 
-    // TOP BAR
-    private Region createTopBar() {
-        Label title = new Label("Micromaniac - Gestion du magasin");
-        title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+    // BARRE DU HAUT
+    private Node createTopBar() {
+        Label title = new Label("Micromaniac");
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Button btnBoutique = new Button("Boutique");
-        Button btnClient = new Button("Client actuel");
+        Button btnClient = new Button("Client");
         Button btnGestion = new Button("Gestion");
+        Button btnAjout = new Button("Ajouter un jeu");
 
         btnBoutique.setOnAction(e -> { show(pageBoutique); refreshAll(); });
         btnClient.setOnAction(e -> { show(pageClient); refreshAll(); });
         btnGestion.setOnAction(e -> { show(pageGestion); refreshAll(); });
+        btnAjout.setOnAction(e -> show(pageAjoutJeu));
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        HBox top = new HBox(10, title, spacer, btnBoutique, btnClient, btnGestion);
+        HBox top = new HBox(10, title, spacer,
+                btnBoutique, btnClient, btnGestion, btnAjout);
         top.setAlignment(Pos.CENTER_LEFT);
         top.setPadding(new Insets(0, 0, 10, 0));
 
@@ -82,139 +89,184 @@ public class MainView extends BorderPane {
         page.setManaged(true);
     }
 
-    // BOTTOM BAR
-    private Region createBottomBar() {
-        moneyLabel = new Label();
-        HBox bar = new HBox(moneyLabel);
-        bar.setPadding(new Insets(10, 0, 0, 0));
-        return bar;
+    // BARRE DU BAS
+    private Node createBottomBar() {
+        argentLabel = new Label();
+        HBox box = new HBox(argentLabel);
+        box.setPadding(new Insets(10, 0, 0, 0));
+        return box;
     }
 
     // PAGE BOUTIQUE
     private Node createBoutiquePage() {
         Label title = new Label("Inventaire du magasin");
-        title.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-weight: bold;");
 
         stockTable = new TableView<>();
         stockTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        TableColumn<InventaireStock, String> colNom =
-                new TableColumn<>("Jeu");
+        TableColumn<InventaireStock, String> colNom = new TableColumn<>("Jeu");
         colNom.setCellValueFactory(d -> d.getValue().nomJeuProperty());
 
-        TableColumn<InventaireStock, String> colType =
-                new TableColumn<>("Type");
+        TableColumn<InventaireStock, String> colType = new TableColumn<>("Type");
         colType.setCellValueFactory(d -> d.getValue().typeJeuProperty());
 
-        TableColumn<InventaireStock, Number> colNeuf =
-                new TableColumn<>("Stock neuf");
+        TableColumn<InventaireStock, Number> colNeuf = new TableColumn<>("Neuf");
         colNeuf.setCellValueFactory(d -> d.getValue().stockNeufProperty());
 
-        TableColumn<InventaireStock, Number> colOcc =
-                new TableColumn<>("Stock occasion");
+        TableColumn<InventaireStock, Number> colOcc = new TableColumn<>("Occasion");
         colOcc.setCellValueFactory(d -> d.getValue().stockOccasionProperty());
 
         stockTable.getColumns().addAll(colNom, colType, colNeuf, colOcc);
 
-        Button refresh = new Button("Rafraîchir");
-        refresh.setOnAction(e -> refreshStockTable());
-
-        VBox page = new VBox(10, title, stockTable, refresh);
+        VBox box = new VBox(10, title, stockTable);
         VBox.setVgrow(stockTable, Priority.ALWAYS);
 
-        return page;
+        return box;
     }
 
     // PAGE CLIENT
     private Node createClientPage() {
-        Label title = new Label("Client actuel");
-        title.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
-        clientFidelityLabel = new Label();
-        clientCartList = new ListView<>();
-        clientTotalLabel = new Label();
+        fideliteLabel = new Label();
+        panierList = new ListView<>();
+        totalLabel = new Label();
 
-        Button btnAccueil = new Button("Faire entrer un client");
-        Button btnCalcul = new Button("Calculer total");
-        Button btnPaiement = new Button("Paiement");
-        Button btnRachat = new Button("Rachat d'un jeu");
+        panierList.setMinWidth(400);
 
-        btnAccueil.setOnAction(e -> {
+        Button accueil = new Button("Faire entrer un client");
+        Button calculer = new Button("Calculer total");
+        Button rachat = new Button("Rachat d'un jeu");
+        Button paiement = new Button("Paiement");
+
+        accueil.setOnAction(e -> {
             magasin.accueil();
             refreshClient();
         });
 
-        btnCalcul.setOnAction(e -> {
-            clientTotalLabel.setText("Total : " + magasin.total() + " €");
-        });
+        calculer.setOnAction(e -> refreshClient());
 
-        btnPaiement.setOnAction(e -> {
+        paiement.setOnAction(e -> {
             magasin.paiment();
             refreshAll();
         });
 
-        btnRachat.setOnAction(e -> {
+        rachat.setOnAction(e -> {
             String jeu = magasin.getClient().rendu(magasin.getDevanture());
+            if (jeu == null || jeu.trim().isEmpty()) return;
+
             magasin.racheter(jeu);
             refreshAll();
         });
 
-        VBox left = new VBox(10,
-                btnAccueil,
-                btnRachat,
-                new Separator(),
-                clientFidelityLabel,
-                new Label("Panier du client"),
-                clientCartList,
-                clientTotalLabel
+        VBox actions = new VBox(10,
+                accueil,
+                rachat,
+                calculer,
+                paiement,
+                fideliteLabel
         );
-        VBox.setVgrow(clientCartList, Priority.ALWAYS);
 
-        VBox right = new VBox(10, btnCalcul, btnPaiement);
+        VBox panierBox = new VBox(10,
+                new Label("Panier :"),
+                panierList,
+                totalLabel
+        );
 
-        HBox content = new HBox(15, left, right);
-        content.setPadding(new Insets(10));
-        HBox.setHgrow(left, Priority.ALWAYS);
+        HBox.setHgrow(panierBox, Priority.ALWAYS);
+        HBox.setHgrow(panierList, Priority.ALWAYS);
 
-        return new VBox(10, title, content);
+        HBox root = new HBox(20, actions, panierBox);
+        root.setPadding(new Insets(10));
+
+        return root;
     }
 
     // PAGE GESTION
     private Node createGestionPage() {
         Label title = new Label("Gestion du magasin");
-        title.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-weight: bold;");
 
         Button restock = new Button("Restock général");
+        Button embauche = new Button("Embaucher");
+
         restock.setOnAction(e -> {
             magasin.restockGeneral();
             refreshAll();
         });
 
-        Button embauche = new Button("Embaucher");
         embauche.setOnAction(e -> {
-            int newArgent = magasin.e.embauche(magasin.getArgent());
-            magasin.setArgent(newArgent);
+            int argent = magasin.e.embauche(magasin.getArgent());
+            magasin.setArgent(argent);
             magasin.n.setStokelevel(magasin.e.getNbEmploie());
             refreshAll();
         });
 
         VBox box = new VBox(10, restock, embauche);
         box.setPadding(new Insets(10));
-        box.setStyle("-fx-border-color: #cccccc; -fx-border-radius: 6px;");
 
         return new VBox(10, title, box);
     }
 
-    // REFRESH
+    // PAGE AJOUT JEU
+    private Node createAjoutJeuPage() {
+        Label title = new Label("Ajouter un jeu");
+        title.setStyle("-fx-font-weight: bold;");
+
+        TextField nomJeuField = new TextField();
+        nomJeuField.setPromptText("Nom du jeu");
+
+        ComboBox<String> categorieBox = new ComboBox<>();
+        categorieBox.getItems().addAll("Moderne", "Rétro");
+        categorieBox.setValue("Moderne");
+
+        Label message = new Label();
+
+        Button ajouter = new Button("Ajouter");
+
+        ajouter.setOnAction(e -> {
+            String nom = nomJeuField.getText();
+            String categorie = categorieBox.getValue();
+
+            if (nom == null || nom.trim().isEmpty()) {
+                message.setText("Nom invalide");
+                return;
+            }
+
+            boolean retro = categorie.equals("Rétro");
+
+            magasin.ajout(nom, retro);
+
+            message.setText("Jeu ajouté : " + nom);
+            nomJeuField.clear();
+
+            refreshStockTable();
+        });
+
+        VBox form = new VBox(10,
+                new Label("Nom du jeu"),
+                nomJeuField,
+                new Label("Catégorie"),
+                categorieBox,
+                ajouter,
+                message
+        );
+        form.setPadding(new Insets(10));
+        form.setMaxWidth(300);
+
+        return new VBox(10, title, form);
+    }
+
+    // RAFRAÎCHISSEMENTS
     private void refreshAll() {
-        moneyLabel.setText("Argent du magasin : " + magasin.getArgent() + " €");
+        argentLabel.setText("Argent : " + magasin.getArgent() + " €");
         refreshClient();
         refreshStockTable();
     }
 
     private void refreshClient() {
         Client c = magasin.getClient();
-        clientFidelityLabel.setText("Fidélité du client : " + c.getFidelity());
+        fideliteLabel.setText("Fidélité : " + c.getFidelity());
 
         List<String> items = new ArrayList<>();
         for (String s : c.getPanier()) {
@@ -222,8 +274,8 @@ public class MainView extends BorderPane {
                 items.add(s);
             }
         }
-        clientCartList.setItems(FXCollections.observableArrayList(items));
-        clientTotalLabel.setText("Total estimé : " + magasin.total() + " €");
+        panierList.setItems(FXCollections.observableArrayList(items));
+        totalLabel.setText("Total estimé : " + magasin.total() + " €");
     }
 
     private void refreshStockTable() {
@@ -235,16 +287,22 @@ public class MainView extends BorderPane {
 
         for (Map.Entry<String, Integer> e : magasin.n.getStockejeuModerne().entrySet()) {
             String jeu = e.getKey();
-            int neuf = e.getValue();
-            int occ = magasin.o.getStockejeuModerneOccase().getOrDefault(jeu, 0);
-            rows.add(new InventaireStock(jeu, "Moderne", neuf, occ));
+            rows.add(new InventaireStock(
+                    jeu,
+                    "Moderne",
+                    e.getValue(),
+                    magasin.o.getStockejeuModerneOccase().getOrDefault(jeu, 0)
+            ));
         }
 
         for (Map.Entry<String, Integer> e : magasin.n.getStockejeuRetro().entrySet()) {
             String jeu = e.getKey();
-            int neuf = e.getValue();
-            int occ = magasin.o.getStockejeuRetroOccase().getOrDefault(jeu, 0);
-            rows.add(new InventaireStock(jeu, "Rétro", neuf, occ));
+            rows.add(new InventaireStock(
+                    jeu,
+                    "Rétro",
+                    e.getValue(),
+                    magasin.o.getStockejeuRetroOccase().getOrDefault(jeu, 0)
+            ));
         }
 
         return rows;
