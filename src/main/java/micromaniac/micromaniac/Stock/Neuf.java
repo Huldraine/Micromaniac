@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 public class Neuf extends Stock {
 
-
-
     public Neuf(int stokeLevel, HashMap<String, Integer> stockeJeuModerne, HashMap<String, Integer> stockeJeuRetro, String[] gameListe, String[] gameListeRetro) {
         super(stokeLevel, stockeJeuModerne, stockeJeuRetro, gameListe, gameListeRetro);
     }
