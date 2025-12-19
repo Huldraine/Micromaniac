@@ -164,6 +164,7 @@ public class Magasin implements Reduction{
     // accueil un client, un par un dans le magasin
     public void accueil() {
         if (clientPresent == false) {
+            client.setPanier(new String[]{ " ", " ", " ", " ", " "});
             this.clientPresent = true;
             this.rachatPossible = true;
             client.choixPanier(this.devanture, client.getPanier());
