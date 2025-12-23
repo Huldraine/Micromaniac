@@ -6,7 +6,6 @@ import micromaniac.micromaniac.Emploie.Emploie;
 import micromaniac.micromaniac.Stock.Neuf;
 import micromaniac.micromaniac.Stock.Occasion;
 
-
 import java.util.*;
 
 
@@ -22,7 +21,10 @@ public class Magasin implements Reduction{
     private String[] devanture;
     private int employe;
 
-    Emploie e = new Emploie(1);
+    Emploie e = new Emploie(1,500, new HashMap<>(Map.of(
+            "E1", 0
+
+    )));
     Panier client = new Panier(new String[]{ " ", " ", " ", " ", " "});
     Neuf n = new Neuf(
             1,
@@ -180,6 +182,18 @@ public class Magasin implements Reduction{
             this.rachatPossible = true;
             client.choixPanier(this.devanture, client.getPanier());
             System.out.println("Bien le bonjour");
+
+            for (int i = 1; i <= e.getNbEmploie() ; i++) {
+                System.out.println("truc");
+                HashMap<String, Integer> nouveauMap = new HashMap<>(e.getTabEmploie());
+                nouveauMap.put("E"+ String.valueOf(i),e.getTabEmploie().get("E"+ String.valueOf(i))+1);
+                e.setTabEmploie(nouveauMap);
+                System.out.println("truc");
+                if (e.getTabEmploie().get("E"+ String.valueOf(i))==30){
+                    this.argent-=e.getCharge();
+                    System.out.println("truc");
+                }
+            }
         } else {
             System.out.println("Il y a déjà un client qui attend son tour");
         }
@@ -394,7 +408,7 @@ public class Magasin implements Reduction{
 
     //permet d'ajouté un employer et donc de gerer plus de stock
     public void nouvelEmployer(){
-        e.embauche(this.argent);
+        e.embauche();
         n.setStokeLevel(e.getNbEmploie());
     }
 
