@@ -197,7 +197,7 @@ public class MainView extends BorderPane {
         });
 
         embauche.setOnAction(e -> {
-            int argent = magasin.e.embauche(magasin.getArgent());
+            int argent = magasin.e.embauche();
             magasin.setArgent(argent);
             magasin.n.setStokeLevel(magasin.e.getNbEmploie());
             refreshAll();
